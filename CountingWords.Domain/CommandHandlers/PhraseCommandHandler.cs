@@ -6,6 +6,7 @@ using CountingWords.Shared.Commands;
 using CountingWords.Shared.FluentValidator;
 using CountingWords.Shared.Util;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CountingWords.Domain.CommandHandlers
 {
@@ -15,10 +16,12 @@ namespace CountingWords.Domain.CommandHandlers
     public class PhraseCommandHandler : Notifiable, ICommandHandler<PhraseCommand>
     {
         private readonly IDictionary<string, int> _wordsAndLengths;
+        private readonly IList<int> _notHaveWords;
 
         public PhraseCommandHandler()
         {
             _wordsAndLengths = new Dictionary<string, int>();
+            _notHaveWords = new List<int>();
         }
 
         /// <summary>
@@ -44,22 +47,34 @@ namespace CountingWords.Domain.CommandHandlers
             var words = phrase.Sentence.CompareStrings();
             var lengths = phrase.Lengths.DeleteDuplicateNumbers();
 
+            TakingWordsLengths(lengths, words);
+            MountStructure(phrase);
+            NotHaveWords(lengths, phrase);
+
+            return new PhraseCommandResult(phrase.Words);
+        }
+
+        private void TakingWordsLengths(IEnumerable<int> lengths, IEnumerable<string> words)
+        {
             foreach (var len in lengths)
             {
-                foreach (var word in words)
+                foreach (var ws in words)
                 {
-                    if (len == word.Length)
-                        _wordsAndLengths.Add(word, len);
+                    if (len == ws.Length)
+                        _wordsAndLengths.Add(ws, len);
                 }
             }
+        }
 
+        private void MountStructure(Phrase phrase)
+        {
             foreach (var w in _wordsAndLengths)
             {
                 var count = 0;
 
                 if (phrase.VerifyLength(w.Value)) continue;
 
-                Word word = new Word(w.Key.Length);
+                var word = new Word(w.Key.Length);
 
                 foreach (var b in _wordsAndLengths)
                 {
@@ -73,8 +88,20 @@ namespace CountingWords.Domain.CommandHandlers
                 word.AddCount(count);
                 phrase.UpdateWords(word);
             }
+        }
 
-            return new PhraseCommandResult(phrase.Words);
+        private void NotHaveWords(IEnumerable<int> lengths, Phrase phrase)
+        {
+            foreach (var item in lengths)
+            {
+                if (!phrase.Words.Any(x => x.Length.Equals(item)))
+                {
+                    var word = new Word(item);
+                    word.AddCount(0);
+                    word.UpdateWords(string.Empty);
+                    phrase.UpdateWords(word);
+                }
+            }
         }
     }
 }

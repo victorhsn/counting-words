@@ -1,4 +1,5 @@
-﻿using CountingWords.Shared.FluentValidator;
+﻿using CountingWords.Log.Logging;
+using CountingWords.Shared.FluentValidator;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,12 @@ namespace CountingWords.Api.Controllers
 
             if (!notifications.Any())
             {
+                Logging.LogInfo(GetType(), "Return success from API");
                 return Ok(result);
             }
             else
             {
+                Logging.LogError(GetType(), "Return no sucess from API");
                 var json = JsonConvert.SerializeObject(notifications);
                 return BadRequest(json);
             }

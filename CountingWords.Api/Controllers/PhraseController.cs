@@ -1,5 +1,6 @@
 ﻿using CountingWords.Domain.CommandHandlers;
 using CountingWords.Domain.Commands;
+using CountingWords.Log.Logging;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -20,6 +21,9 @@ namespace CountingWords.Api.Controllers
         [Route("v1/phrase")]
         public async Task<IHttpActionResult> Post([FromBody] PhraseCommand command)
         {
+            Logging.LogInfo(GetType(), "The method post executed");
+            Logging.LogInfo(GetType(), $"Values:{command.Sentence}");
+
             var result = _handler.Handle(command);
 
             return await Response(result, _handler.Notifications);

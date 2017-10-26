@@ -1,6 +1,7 @@
 ﻿using CountingWords.Domain.CommandResults;
 using CountingWords.Domain.Commands;
 using CountingWords.Domain.Entities;
+using CountingWords.Log.Logging;
 using CountingWords.Shared.Commands;
 using CountingWords.Shared.FluentValidator;
 using CountingWords.Shared.Util;
@@ -35,10 +36,10 @@ namespace CountingWords.Domain.CommandHandlers
             AddNotifications(phrase.Notifications);
 
             if (!IsValid())
+            {
+                Logging.LogError(GetType(), phrase.Notifications);
                 return null;
-
-            if (phrase.Lengths.Length < 0)
-                AddNotification("Lengths", "Any length was informed!");
+            }
 
             var words = phrase.Sentence.CompareStrings();
             var lengths = phrase.Lengths.DeleteDuplicateNumbers();

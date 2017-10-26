@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EA43F893-2A67-43FA-88EB-0B6CC570DD0F}</ProjectGuid>
+    <ProjectGuid>{C392B940-DE13-4CB8-937A-9675BF14EF22}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CountingWords.Domain</RootNamespace>
-    <AssemblyName>CountingWords.Domain</AssemblyName>
+    <RootNamespace>CountingWords.Logging</RootNamespace>
+    <AssemblyName>CountingWords.Logging</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,19 +44,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandHandlers\PhraseCommandHandler.cs" />
-    <Compile Include="CommandResults\PhraseCommandResult.cs" />
-    <Compile Include="Commands\PhraseCommand.cs" />
-    <Compile Include="Entities\Phrase.cs" />
-    <Compile Include="Entities\Word.cs" />
+    <Compile Include="Logging\Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\CountingWords.Logging\CountingWords.Log.csproj">
-      <Project>{c392b940-de13-4cb8-937a-9675bf14ef22}</Project>
-      <Name>CountingWords.Log</Name>
-    </ProjectReference>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\CountingWords.Shared\CountingWords.Shared.csproj">
       <Project>{5545e718-4bd4-4799-8f39-25462bd34893}</Project>
       <Name>CountingWords.Shared</Name>

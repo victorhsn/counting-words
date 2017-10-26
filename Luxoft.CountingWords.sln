@@ -13,6 +13,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountingWords.Tests", "Coun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountingWords.Api", "CountingWords.Api\CountingWords.Api.csproj", "{D945FABC-B3AC-4869-AC18-E22755A496B7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ACA9642F-BDA5-45AD-A63C-A3A0F756EF76}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountingWords.Log", "CountingWords.Logging\CountingWords.Log.csproj", "{C392B940-DE13-4CB8-937A-9675BF14EF22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +46,10 @@ Global
 		{D945FABC-B3AC-4869-AC18-E22755A496B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D945FABC-B3AC-4869-AC18-E22755A496B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D945FABC-B3AC-4869-AC18-E22755A496B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C392B940-DE13-4CB8-937A-9675BF14EF22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C392B940-DE13-4CB8-937A-9675BF14EF22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C392B940-DE13-4CB8-937A-9675BF14EF22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C392B940-DE13-4CB8-937A-9675BF14EF22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

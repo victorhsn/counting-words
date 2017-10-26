@@ -169,7 +169,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CountingWords.Domain\CountingWords.Domain.csproj">
       <Project>{ea43f893-2a67-43fa-88eb-0b6cc570dd0f}</Project>
@@ -178,6 +180,10 @@
     <ProjectReference Include="..\CountingWords.Helpers\CountingWords.Helpers.csproj">
       <Project>{b15263e6-2aff-43a4-9974-1e4957befc7a}</Project>
       <Name>CountingWords.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CountingWords.Logging\CountingWords.Log.csproj">
+      <Project>{c392b940-de13-4cb8-937a-9675bf14ef22}</Project>
+      <Name>CountingWords.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\CountingWords.Shared\CountingWords.Shared.csproj">
       <Project>{5545e718-4bd4-4799-8f39-25462bd34893}</Project>

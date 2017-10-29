@@ -51,8 +51,15 @@ namespace CountingWords.Domain.Entities
         /// <param name="word"></param>
         public void UpdateWords(string word)
         {
-            _words.Add(word);
-            Words = _words;
+            if (string.IsNullOrEmpty(word))
+            {
+                Words = new string[] { };
+            }
+            else
+            {
+                _words.Add(word);
+                Words = _words;
+            }
         }
         #endregion
     }

@@ -5,6 +5,7 @@ using CountingWords.Log.Logging;
 using CountingWords.Shared.Commands;
 using CountingWords.Shared.FluentValidator;
 using CountingWords.Shared.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -92,15 +93,27 @@ namespace CountingWords.Domain.CommandHandlers
 
         private void NotHaveWords(IEnumerable<int> lengths, Phrase phrase)
         {
+
             foreach (var item in lengths)
             {
-                if (!phrase.Words.Any(x => x.Length.Equals(item)))
+                try
                 {
+                    if (!phrase.Words.Any(x => x.Length.Equals(item)))
+                    {
+                        var word = new Word(item);
+                        word.AddCount(0);
+                        word.UpdateWords(string.Empty);
+                        phrase.UpdateWords(word);
+                    }
+                }
+                catch (Exception)
+                {
+
                     var word = new Word(item);
                     word.AddCount(0);
                     word.UpdateWords(string.Empty);
                     phrase.UpdateWords(word);
-                }
+                }        
             }
         }
     }
